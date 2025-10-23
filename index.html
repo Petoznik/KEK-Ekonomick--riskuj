@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riskuj!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="brand">Riskuj Live</div>
+            <ul>
+                <li><a href="hra.html">Výběr hry</a></li>
+                <li><a href="#game">Hra</a></li>
+                <li><a href="#teams">Týmy</a></li>
+                <li><a href="#rules">Pravidla</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1 id="hero-title">Riskuj: Moderní týmová soutěž</h1>
+            <p id="hero-description">Připrav se na vzrušující hru plnou napětí! Vyber si počet týmů, vyzvi protihráče a ukaž, kdo má největší znalosti. Čas běží!</p>
+            <div id="hero-meta" class="hero-meta"></div>
+        </section>
+
+        <section id="controls" class="controls">
+            <div class="control-group">
+                <label for="team-count">Počet týmů:</label>
+                <select id="team-count">
+                    <option value="2">2 týmy</option>
+                    <option value="3">3 týmy</option>
+                    <option value="4">4 týmy</option>
+                </select>
+                <button id="start-btn">Spustit hru</button>
+            </div>
+
+            <div id="teams" class="scoreboard"></div>
+        </section>
+
+        <section id="game" class="board-container" aria-live="polite">
+            <div class="board-grid" id="board"></div>
+        </section>
+
+        <section id="rules" class="hero" style="padding-top: 0;">
+            <h2>Pravidla hry</h2>
+            <p>
+                Vyber si otázku podle kategorie a bodové hodnoty. Týmy se automaticky střídají po každém kole.
+                Na odpověď máte 30 sekund. Pokud odpověď nestihnete nebo je chybná, odečtou se vám body, které jste vsadili.
+                Skóre může klesnout i do záporných hodnot. Vyhrává tým s nejvyšším skóre na konci hry.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> Riskuj Live. Všechna práva vyhrazena.
+    </footer>
+
+    <div class="question-modal" id="question-modal" aria-hidden="true">
+        <div class="question-card">
+            <div class="timer">Čas: <span id="timer">30</span>s</div>
+            <h2 id="question-text"></h2>
+            <div class="answers" id="answers"></div>
+            <div class="result" id="result"></div>
+            <button id="close-btn" style="display:none;">Další kolo</button>
+        </div>
+    </div>
+    <script src="game-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

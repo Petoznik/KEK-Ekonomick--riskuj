@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riskuj – Výběr hry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            background: radial-gradient(circle at top, rgba(74, 222, 128, 0.15), transparent), var(--bg);
+        }
+
+        main {
+            display: grid;
+            place-items: center;
+            padding: 4rem 1.5rem;
+        }
+
+        .selection-card {
+            background: rgba(15, 23, 42, 0.85);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            max-width: 900px;
+            width: 100%;
+            display: grid;
+            gap: 2.5rem;
+            box-shadow: 0 35px 70px rgba(15, 23, 42, 0.6);
+        }
+
+        .selection-card header h1 {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+        }
+
+        .grades {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grade-row {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 18px;
+            padding: 1.5rem;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grade-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .grade-header h2 {
+            font-size: 1.4rem;
+        }
+
+        .topics {
+            display: grid;
+            gap: 0.75rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+
+        .topic-link {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.9rem 1.2rem;
+            border-radius: 14px;
+            background: rgba(56, 189, 248, 0.18);
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        }
+
+        .topic-link:hover {
+            transform: translateY(-4px);
+            background: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 15px 30px rgba(56, 189, 248, 0.25);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            color: var(--muted);
+        }
+
+        @media (max-width: 720px) {
+            .selection-card {
+                padding: 2.5rem 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="selection-card">
+            <header>
+                <h1>Vyber ročník a téma</h1>
+                <p style="text-align:center; color: var(--muted);">
+                    Zvol, pro jaký ročník a jaké téma chceš hru Riskuj spustit. Po výběru budeš přesměrován přímo do hry.
+                </p>
+            </header>
+            <div class="grades" id="grade-list"></div>
+            <footer>
+                <a href="index.html" style="color: var(--accent)">Zpět na hlavní hru</a>
+            </footer>
+        </div>
+    </main>
+
+    <script src="game-config.js"></script>
+    <script>
+        const gradeList = document.getElementById("grade-list");
+        const entries = Object.entries(GAME_CONFIGS).filter(([key]) => key !== "default");
+
+        entries.forEach(([gradeKey, config]) => {
+            const row = document.createElement("section");
+            row.className = "grade-row";
+
+            const header = document.createElement("div");
+            header.className = "grade-header";
+            const title = document.createElement("h2");
+            title.textContent = config.hero.title;
+            const description = document.createElement("p");
+            description.style.color = "var(--muted)";
+            description.textContent = config.hero.description;
+            header.appendChild(title);
+            header.appendChild(description);
+
+            const topics = document.createElement("div");
+            topics.className = "topics";
+
+            config.categories.forEach(topicName => {
+                const link = document.createElement("a");
+                link.className = "topic-link";
+                link.href = `index.html?grade=${encodeURIComponent(gradeKey)}&topic=${encodeURIComponent(topicName)}`;
+                link.textContent = topicName;
+                topics.appendChild(link);
+            });
+
+            row.appendChild(header);
+            row.appendChild(topics);
+            gradeList.appendChild(row);
+        });
+    </script>
+</body>
+</html>
