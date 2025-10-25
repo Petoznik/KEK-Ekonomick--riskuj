@@ -7,10 +7,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style2.css" />
-    <script type="module" src="darkveil.js"></script>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style2.css">
+    <script type="module" src="js/darkveil.js"></script>
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="brand">Riskuj Live</div>
+            <ul>
+                <li><a href="index.html">O nás</a></li>
+                <li><a href="hra.html">Výběr hry</a></li>
+                <li><a href="rules.html">Pravidla</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
         <div class="grade-selection">
             <header>
@@ -30,11 +42,16 @@
             </div>
 
             <footer>
-                <a href="index.html" style="color: var(--text)">Zpět na hlavní hru</a>
+                <a href="index.html" style="color: var(--text)">O nás</a>
             </footer>
         </div>
     </main>
 
-    <script src="script2.js"></script>
+    <footer>
+        &copy; <span id="year"></span> Riskuj Live. Všechna práva vyhrazena.
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/script2.js"></script>
 </body>
 </html>
