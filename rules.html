@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riskuj – Pravidla</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style2.css">
+    <script type="module" src="js/darkveil.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="brand">Riskuj Live</div>
+            <ul>
+                <li><a href="index.html">O nás</a></li>
+                <li><a href="hra.html">Výběr hry</a></li>
+                <li><a href="rules.html">Pravidla</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Pravidla</h1>
+            <div class="about-block">
+                <p class="lead">Níže jsou uvedena pravidla hry. Pokuste se je dodržovat pro plynulý průběh soutěže.</p>
+
+                <h2>Cíl hry</h2>
+                <p>Nasbírat co nejvíce bodů pro svůj tým odpovídáním na otázky s různou bodovou hodnotou.</p>
+
+                <h2>Příprava</h2>
+                <ul class="accent-list">
+                    <li>Rozdělte hráče do týmů (minimálně 2 týmy).</li>
+                    <li>Vyberte ročník / sadu témat — kategorie a otázky se načtou podle nastavení.</li>
+                    <li>Určete pořadí týmů; začíná Tým 1 (po spuštění hry).</li>
+                </ul>
+
+                <h2>Průběh kola</h2>
+                <ol>
+                    <li>Aktivní tým si vybere otázku z hracího pole (buňka s body).</li>
+                    <li>Po zobrazení otázky má tým omezený čas na odpověď (výchozí 30 s).</li>
+                    <li>Pokud tým odpoví správně, body se přičtou podle hodnoty otázky; pokud odpoví špatně nebo čas vyprší, body se odečtou.</li>
+                    <li>Po odpovědi má odpovídající tým 20 sekund na krátké vysvětlení nebo diskuzi (indikováno v modálním okně).</li>
+                    <li>Po uplynutí vysvětlení nebo dřívějším stisknutí tlačítka „Další kolo“ přechází tah na další tým.</li>
+                </ol>
+
+                <h2>Bodování</h2>
+                <ul class="accent-list">
+                    <li>Hodnota otázky určuje počet bodů za správnou odpověď (např. 100, 200, ...).</li>
+                    <li>Správná odpověď přidá body; nesprávná odpověď nebo vypršení času body odečte.</li>
+                    <li>Vyřazené buňky se označí a nejsou znovu k dispozici.</li>
+                </ul>
+
+                <h2>Speciální pravidla</h2>
+                <ul>
+                    <li>Po zodpovězení otázky se zobrazí tlačítko <strong>Další kolo</strong> — jeho text obsahuje jméno týmu, který bude hrát příště, pro lepší orientaci.</li>
+                    <li>Během vysvětlení je hrací pole krátce zablokované (cooldown), aby nedošlo k náhodnému výběru jiné otázky.</li>
+                    <li>K tlačítku <strong>Další kolo</strong> se lze dostat i klávesnicí (focus + Enter / Space) pro lepší přístupnost.</li>
+                </ul>
+
+                <h2>Konec hry a vítěz</h2>
+                <p>Hra končí, když jsou vybrány všechny otázky nebo podle předem stanoveného času/počet kol. Vítězí tým s nejvyšším počtem bodů. V případě remízy lze zahrát rozstřelní otázky.</p>
+
+                <h2>Fair play</h2>
+                <p>Respektujte ostatní týmy, neprozrazujte odpovědi dříve, než je to potřeba, a snažte se vést stručná vysvětlení, aby hra plynula.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; <span id="year"></span> Riskuj Live. Všechna práva vyhrazena.
+    </footer>
+
+    <script src="js/common.js"></script>
+</body>
+</html>
