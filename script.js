@@ -12,6 +12,7 @@ const answersDiv = document.getElementById("answers");
 const resultDiv = document.getElementById("result");
 const timerSpan = document.getElementById("timer");
 const closeBtn = document.getElementById("close-btn");
+const explainDiv = document.getElementById("explain");
 const heroMeta = document.getElementById("hero-meta");
 
 let teams = [];
@@ -22,6 +23,8 @@ let timerInterval = null;
 let timeLeft = 30;
 let cooldownTimeout = null;
 let isCooldown = false;
+let explainInterval = null;
+let explainTimeLeft = 0;
 
 function resetModal() {
     clearInterval(timerInterval);
@@ -32,6 +35,13 @@ function resetModal() {
     resultDiv.textContent = "";
     resultDiv.style.color = "var(--text)";
     closeBtn.style.display = "none";
+    // clear explanation display and timer
+    if (explainInterval) {
+        clearInterval(explainInterval);
+        explainInterval = null;
+    }
+    explainTimeLeft = 0;
+    if (explainDiv) explainDiv.textContent = "";
     modal.classList.remove("active");
     modal.setAttribute("aria-hidden", "true");
 }
@@ -139,6 +149,23 @@ function startTimer() {
     }, 1000);
 }
 
+function startExplainTimer(duration) {
+    if (!explainDiv) return;
+    if (explainInterval) clearInterval(explainInterval);
+    explainTimeLeft = duration;
+    explainDiv.textContent = `Vysvětlení: ${explainTimeLeft}s`;
+    explainInterval = setInterval(() => {
+        explainTimeLeft -= 1;
+        if (explainTimeLeft <= 0) {
+            clearInterval(explainInterval);
+            explainInterval = null;
+            explainDiv.textContent = "";
+            return;
+        }
+        explainDiv.textContent = `Vysvětlení: ${explainTimeLeft}s`;
+    }, 1000);
+}
+
 function disableAnswers() {
     document.querySelectorAll(".answer-btn").forEach(btn => (btn.disabled = true));
 }
@@ -185,15 +212,34 @@ function concludeQuestion() {
         currentQuestion.cell.classList.add("disabled");
         currentQuestion.cell.disabled = true;
     }
+    // Set contextual label for the next round button (show which team will play next)
+    if (teams.length) {
+        const nextIndex = (currentTeamIndex + 1) % teams.length;
+        closeBtn.textContent = `Další kolo — ${teams[nextIndex].name}`;
+    } else {
+        closeBtn.textContent = "Další kolo";
+    }
 
+    closeBtn.setAttribute('aria-hidden', 'false');
     closeBtn.style.display = "inline-flex";
+    closeBtn.classList.add('next-btn');
+    // focus the button so keyboard users can continue quickly
+    closeBtn.focus();
+    // start the automatic cooldown (prevents other teams picking until timeout)
     if (!isCooldown) {
         beginCooldown();
     }
+
+    // Start a short explanation timer (20s) so the answering team can explain.
+    // This is informational; pressing the "Další kolo" button will immediately stop cooldown
+    // and allow the next team to pick.
+    startExplainTimer(20);
 }
 
 function closeQuestion() {
     const hadQuestion = Boolean(currentQuestion);
+    // allow immediate next selection when closing the modal
+    stopCooldown();
     resetModal();
     if (hadQuestion && teams.length) {
         currentTeamIndex = (currentTeamIndex + 1) % teams.length;
@@ -201,6 +247,14 @@ function closeQuestion() {
     }
     currentQuestion = null;
 }
+
+// Allow Enter key to also close the question when the button is visible/focused
+closeBtn.addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && closeBtn.style.display !== 'none') {
+        e.preventDefault();
+        closeQuestion();
+    }
+});
 
 function handleCellClick(event) {
     const cell = event.target.closest(".cell");
